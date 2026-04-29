@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/dotnet:9.0-jammy
+FROM mcr.microsoft.com/devcontainers/dotnet:8.0-jammy
 
 # Install additional tools
 RUN apt-get update && apt-get install -y \
