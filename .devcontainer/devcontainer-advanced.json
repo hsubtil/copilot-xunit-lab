@@ -1,0 +1,81 @@
+{
+    "name": "C# xUnit & GitHub Copilot (Advanced)",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..",
+        "args": {
+            "VARIANT": "9.0-jammy"
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.vscode-dotnet-runtime",
+                "ms-dotnettools.test-explorer",
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "ms-vscode.makefile-tools",
+                "EditorConfig.EditorConfig",
+                "sonarsource.sonarlint-vscode"
+            ],
+            "settings": {
+                "dotnet.defaultSolutionOrFolder": "",
+                "[csharp]": {
+                    "editor.defaultFormatter": "ms-dotnettools.csharp",
+                    "editor.formatOnSave": true,
+                    "editor.formatOnPaste": true
+                },
+                "omnisharp.enableEditorConfigSupport": true,
+                "omnisharp.enableRoslynAnalyzers": true,
+                "omnisharp.organizeImportsOnFormat": true,
+                "editor.rulers": [
+                    80,
+                    120
+                ],
+                "files.watcherExclude": {
+                    "**/bin": true,
+                    "**/obj": true,
+                    "**/.git": true
+                },
+                "search.exclude": {
+                    "**/bin": true,
+                    "**/obj": true,
+                    "**/.vs": true
+                }
+            }
+        }
+    },
+    "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "remoteUser": "vscode",
+    "forwardPorts": [
+        5000,
+        5001,
+        7071
+    ],
+    "portsAttributes": {
+        "5000": {
+            "label": "Application HTTP",
+            "onAutoForward": "notify",
+            "protocol": "http"
+        },
+        "5001": {
+            "label": "Application HTTPS",
+            "onAutoForward": "notify",
+            "protocol": "https"
+        },
+        "7071": {
+            "label": "Azure Functions",
+            "onAutoForward": "notify"
+        }
+    },
+    "workspaceFolder": "/workspace"
+}

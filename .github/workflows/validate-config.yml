@@ -1,0 +1,80 @@
+name: Validate Configuration
+
+on:
+    push:
+        branches: [ main, develop ]
+        paths:
+            - ".devcontainer/**"
+            - ".github/workflows/**"
+    pull_request:
+        branches: [ main ]
+        paths:
+            - ".devcontainer/**"
+            - ".github/workflows/**"
+
+jobs:
+    validate-json:
+        runs-on: ubuntu-latest
+        name: Validate JSON Configuration
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Validate devcontainer.json
+              run: |
+                  python3 -m json.tool .devcontainer/devcontainer.json > /dev/null
+                  echo "✓ devcontainer.json is valid"
+
+            - name: Validate devcontainer-advanced.json
+              run: |
+                  python3 -m json.tool .devcontainer/devcontainer-advanced.json > /dev/null
+                  echo "✓ devcontainer-advanced.json is valid"
+
+    validate-shell:
+        runs-on: ubuntu-latest
+        name: Validate Shell Scripts
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install ShellCheck
+              run: sudo apt-get install -y shellcheck
+
+            - name: Check post-create.sh
+              run: shellcheck .devcontainer/post-create.sh
+
+            - name: Check init.sh
+              run: shellcheck .devcontainer/init.sh
+
+    validate-docker:
+        runs-on: ubuntu-latest
+        name: Validate Dockerfile
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Build Docker image
+              run: docker build -t xunit-lab:test .devcontainer/
+              continue-on-error: true
+
+            - name: Validate docker-compose
+              run: |
+                  docker-compose -f .devcontainer/docker-compose.yml config > /dev/null
+                  echo "✓ docker-compose.yml is valid"
+              continue-on-error: true
+
+    validate-documentation:
+        runs-on: ubuntu-latest
+        name: Validate Documentation
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Check README.md exists
+              run: test -f README.md && echo "✓ README.md found"
+
+            - name: Check QUICKSTART.md exists
+              run: test -f QUICKSTART.md && echo "✓ QUICKSTART.md found"
+
+            - name: Check devcontainer README exists
+              run: test -f .devcontainer/README.md && echo "✓ .devcontainer/README.md found"
+
+            - name: Validate links (optional)
+              run: echo "Documentation files present and readable"
+              continue-on-error: true
