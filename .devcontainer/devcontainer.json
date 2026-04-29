@@ -11,6 +11,7 @@
                 "ms-dotnettools.csharp",
                 "ms-dotnettools.csharp-dev-kit",
                 "ms-dotnettools.vscode-dotnet-runtime",
+                "formulahendry.dotnet-test-explorer",
                 "GitHub.copilot",
                 "GitHub.copilot-chat",
                 "ms-vscode.makefile-tools"
