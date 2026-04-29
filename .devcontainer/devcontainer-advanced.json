@@ -4,7 +4,7 @@
         "dockerfile": "Dockerfile",
         "context": "..",
         "args": {
-            "VARIANT": "8.0-jammy"
+            "VARIANT": "9.0-jammy"
         }
     },
     "features": {
@@ -19,6 +19,7 @@
         "vscode": {
             "extensions": [
                 "ms-dotnettools.csharp",
+                "ms-dotnettools.csharp-dev-kit",
                 "ms-dotnettools.vscode-dotnet-runtime",
                 "ms-dotnettools.test-explorer",
                 "GitHub.copilot",

@@ -9,6 +9,7 @@
         "vscode": {
             "extensions": [
                 "ms-dotnettools.csharp",
+                "ms-dotnettools.csharp-dev-kit",
                 "ms-dotnettools.vscode-dotnet-runtime",
                 "GitHub.copilot",
                 "GitHub.copilot-chat",
